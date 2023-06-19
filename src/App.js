@@ -1,8 +1,8 @@
-//import './App.css';
 
 import {useEffect, useState} from "react";
 
-import {Panell} from "./styled"
+import {Panell, DivPrincipal} from "./styled"
+import PanellSeleccio from "./components/PanellSeleccio";
 
 
 function App() {
@@ -11,68 +11,80 @@ const [web, setWeb] = useState(false);
 const [seo, setSeo] = useState(false);
 const [ads, setAds] = useState(false);
 
-const handleWeb = () => {return (setWeb(!web), setPage(0))}; 
+const handleWeb = () => {return (setWeb(!web), setCount1(1),setCount2(1))}; 
 const handleSeo = () => {setSeo(!seo)};
 const handleAds = () => {setAds(!ads)};
 
-const [budget, setBudget] = useState(0);
+const[count1, setCount1]=useState(1)
+const[count2, setCount2]=useState(1)
 
-const [page, setPage] = useState(0) 
-const [idiom, setIdiom] = useState(0) 
-const [fix, setFix] = useState(0) 
+const add1 = () =>  {
+  setCount1(count1 + 1)}  
+  
+const add2 = () =>  {
+   setCount2(count2 + 1)}
+
+const rest1 = () => {
+    count1 >=2 ?setCount1(count1 - 1):alert("El valor mínim és 1")}
+
+const rest2 = () => {
+      count2 >=2 ?setCount2(count2 - 1):alert("El valor mínim és 1")}
 
 const suma = () =>  {return ((!web? 0:500) + (!seo? 0:300) + (!ads? 0:200)) };
-const sumaWeb = () => {return ((!web? 0:page) * (!web? 0:idiom) * (fix))}
+const sumaWeb = () => {return ((!web? 0:count1) * (!web? 0:count2) * (30))}
 
-
+const [budget, setBudget] = useState(0);
 useEffect(() => {setBudget((suma()) + (sumaWeb())); console.log(budget)}) //GUARDEM PRESSUPOST A BUDGET
 
 return (
 
-<div>
-        <p>
-          ¿Què vols fer?
-        </p>
-
-<form>
-  <label>
+<DivPrincipal>
+        <p>¿Què vols fer?</p> 
+ 
         <input type="checkbox"  checked={web}  onChange= {handleWeb} />
-        Una pàgina Web (500€)
+        Una pàgina Web (500€)         
 
-    {web &&   <Panell> 
-      <p>Siusplau Omple les 2 caselles</p>
-          <p>Número de pàgines <input type="text"  onChange={(event) => {
-            return(setPage(event.target.value),setFix(30))}}/></p>
+      {web &&   <Panell>         
 
-        <p>Número d´idiomes <input type="text"   onChange={(event) => {
-        return(setIdiom(event.target.value),setFix(30))}}/></p>
+    <PanellSeleccio descripcio="Número de pàgines" funcioSuma={add1} value={count1} funcioResta={rest1} funcioInput= {(e)=> {setCount1(parseInt(e.target.value))}}/> 
 
-    </Panell> }  
+     <PanellSeleccio descripcio="Número de llengües" funcioSuma={add2} value={count2} funcioResta={rest2} funcioInput= {(e)=> {setCount2(parseInt(e.target.value))}}/>
 
- </label>
-   
-</form>
+    </Panell> 
 
-<form>
-   <label>
+    }   
+
+ <form>   
         <input type="checkbox"  checked={seo} onChange={handleSeo}/>
-        Una consultoria SEO (300€)
-  </label>
+        Una consultoria SEO (300€)  
 </form>
 
-<form>
-   <label>
+<form>  
         <input type="checkbox"  checked={ads} onChange={handleAds}/>
-        Una campanya de Google Ads (200€)
-  </label>
+        Una campanya de Google Ads (200€) 
 </form>
 
 <p>
 Preu: {suma() + sumaWeb()} 
 </p>
-        
-  </div>
+         
+  </DivPrincipal>
   );
 }
 
 export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
