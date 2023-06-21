@@ -7,16 +7,22 @@ import PanellSeleccio from "./components/PanellSeleccio";
 
 function App() {
 
-const [web, setWeb] = useState(false);
-const [seo, setSeo] = useState(false);
-const [ads, setAds] = useState(false);
+const storedWeb = JSON.parse(localStorage.getItem("web")); 
+const storedSeo = JSON.parse(localStorage.getItem("seo"));
+const storedAds = JSON.parse(localStorage.getItem("ads"));
+const storedCount1 = JSON.parse(localStorage.getItem("count1"));
+const storedCount2 = JSON.parse(localStorage.getItem("count2"));
 
-const handleWeb = () => {return (setWeb(!web), setCount1(1),setCount2(1))}; 
+const [web, setWeb] = useState(storedWeb); 
+const [seo, setSeo] = useState(storedSeo); 
+const [ads, setAds] = useState(storedAds); 
+
+const handleWeb = () => {return (setWeb(!web), setCount1(1),setCount2(1))};  
 const handleSeo = () => {setSeo(!seo)};
 const handleAds = () => {setAds(!ads)};
 
-const[count1, setCount1]=useState(1)
-const[count2, setCount2]=useState(1)
+const[count1, setCount1]=useState(storedCount1)  
+const[count2, setCount2]=useState(storedCount2)  
 
 const add1 = () =>  {
   setCount1(count1 + 1)}  
@@ -33,8 +39,18 @@ const rest2 = () => {
 const suma = () =>  {return ((!web? 0:500) + (!seo? 0:300) + (!ads? 0:200)) };
 const sumaWeb = () => {return ((!web? 0:count1) * (!web? 0:count2) * (30))}
 
-const [budget, setBudget] = useState(0);
-useEffect(() => {setBudget((suma()) + (sumaWeb())); console.log(budget)}) //GUARDEM PRESSUPOST A BUDGET
+// const [budget, setBudget] = useState(0);
+// useEffect(() => {setBudget((suma()) + (sumaWeb())); console.log(budget)}) 
+
+useEffect(() => {
+
+localStorage.setItem("web", JSON.stringify(web))
+localStorage.setItem("seo", JSON.stringify(seo))
+localStorage.setItem("ads", JSON.stringify(ads))
+localStorage.setItem("count1", JSON.stringify(count1))
+localStorage.setItem("count2", JSON.stringify(count2))
+
+},[web,seo, ads, count1, count2]) 
 
 return (
 
