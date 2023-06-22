@@ -1,4 +1,3 @@
-import styled from "styled-components"
 
 import {BotoMesMenys, InputQuantitat} from "../styled"
 
