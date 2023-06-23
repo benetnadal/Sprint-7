@@ -1,4 +1,4 @@
-import { Container, ContainerBoto,  BotoMesMenys } from "../styled";
+import { Container,  BotoEndavant } from "../styled";
 
 
 import { useNavigate } from "react-router-dom";
@@ -22,14 +22,14 @@ return(
             
             </p>    
 
+    <BotoEndavant onClick={() => Navigate(process.env.PUBLIC_URL + "/page2")}>SOM-HI!</BotoEndavant>
+
 
         </Container>    
 
 
 
-    <ContainerBoto>
-    <BotoMesMenys onClick={() => Navigate(process.env.PUBLIC_URL + "/page2")}>SOM-HI!</BotoMesMenys>
-    </ContainerBoto>
+    
     </div>)
     }
 

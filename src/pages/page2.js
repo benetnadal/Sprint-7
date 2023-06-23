@@ -1,9 +1,10 @@
 
 import {useEffect, useState} from "react";
 
-import {Panell, DivPrincipal, ContainerBoto, BotonsEstil,BotoMesMenys } from "../styled"
+import {Panell, DivPrincipal, BotoEnrere } from "../styled"
 import PanellSeleccio from "../components/PanellSeleccio";
 import { useNavigate } from "react-router-dom";
+import Popup from "../components/Popup";
 
 
 
@@ -58,6 +59,10 @@ localStorage.setItem("count1", JSON.stringify(count1))
 localStorage.setItem("count2", JSON.stringify(count2))
 
 },[web,seo, ads, count1, count2]) 
+
+const [popupEstat1, setPopupEstat1] = useState(false);
+const [popupEstat2, setPopupEstat2] = useState(false);
+
  
 return (
 
@@ -69,9 +74,15 @@ return (
 
       {web &&   <Panell>         
 
-    <PanellSeleccio descripcio="Número de pàgines" funcioSuma={add1} value={count1} funcioResta={rest1} funcioInput= {(e)=> {setCount1(parseInt(e.target.value))}}/> 
 
-     <PanellSeleccio descripcio="Número de llengües" funcioSuma={add2} value={count2} funcioResta={rest2} funcioInput= {(e)=> {setCount2(parseInt(e.target.value))}}/>
+    <PanellSeleccio descripcio="Número de pàgines" funcioSuma={add1} value={count1} funcioResta={rest1} funcioInput= {(e)=> {setCount1(parseInt(e.target.value))}} 
+    funcioPopup={() =>  {setPopupEstat1(true)}}/>
+        
+    <Popup trigger={popupEstat1} descripcio="En aquest component has d´indicar quantes pàgines web vols encarregar " tancarPopup={()=> {setPopupEstat1(false)}} />
+
+     <PanellSeleccio descripcio="Número de llengües" funcioSuma={add2} value={count2} funcioResta={rest2} funcioInput= {(e)=> {setCount2(parseInt(e.target.value))}} funcioPopup={() =>  {setPopupEstat2(true)}}/>
+
+     <Popup trigger={popupEstat2} descripcio="En aquest component has d´indicar el número de llengües que vols que hi apareguin" tancarPopup={()=> {setPopupEstat2(false)}}/>
 
     </Panell> 
 
@@ -91,9 +102,11 @@ return (
 Preu: {suma() + sumaWeb()} 
 </p>
 
-<ContainerBoto>
-    <BotoMesMenys onClick={() => Navigate(process.env.PUBLIC_URL + "/")}>Pantalla Inicial</BotoMesMenys>
-</ContainerBoto>         
+
+    <BotoEnrere onClick={() => Navigate(process.env.PUBLIC_URL + "/")}>Pantalla Inicial</BotoEnrere>
+
+
+
   </DivPrincipal>
 
   

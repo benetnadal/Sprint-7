@@ -1,7 +1,8 @@
 
-import {BotoMesMenys, InputQuantitat} from "../styled"
+import {BotoMesMenys, InputQuantitat, BotoInf} from "../styled";
+import {FaInfo} from "react-icons/fa";
 
-const PanellSeleccio = ({ descripcio, value, funcioSuma, funcioResta, funcioInput })  =>{
+const PanellSeleccio = ({ descripcio, value, funcioSuma, funcioResta, funcioInput, funcioPopup })  =>{
 
     return (
 
@@ -9,7 +10,9 @@ const PanellSeleccio = ({ descripcio, value, funcioSuma, funcioResta, funcioInpu
      <p>{descripcio}
      <BotoMesMenys onClick={funcioSuma}>+</BotoMesMenys>
      <InputQuantitat type="text" value={value} onChange={funcioInput}/>
-     <BotoMesMenys onClick={funcioResta}>-</BotoMesMenys></p>
+   
+     <BotoMesMenys onClick={funcioResta}>-</BotoMesMenys>
+     <BotoInf onClick={funcioPopup}><FaInfo/></BotoInf></p>
      </div>
     )}
 
